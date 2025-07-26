@@ -49,7 +49,7 @@ function ThoughtReactions({ thoughtId }) {
           INSERT INTO
             reactions (id, thought_id, user_id, emoji, created_at)
           VALUES
-            (uuid (), ?, ?, ?, datetime ())
+            (uuid(), ?, ?, ?, datetime())
         `,
         [thoughtId, connector.userId, emoji]
       );
@@ -130,7 +130,7 @@ export default function ThoughtsApp() {
             INSERT INTO
               thoughts (id, content, created_at, created_by)
             VALUES
-              (uuid (), ?, datetime (), ?)
+              (uuid(), ?, datetime(), ?)
           `,
           [newThoughtContent.trim(), connector.userId]
         );

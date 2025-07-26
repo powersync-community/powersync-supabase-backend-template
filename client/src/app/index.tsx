@@ -25,7 +25,19 @@ function ThoughtReactions({ thoughtId }) {
 
   // Query reactions grouped by emoji with counts
   const { data: reactionGroups } = useQuery<EmojiCounter>(
-    "SELECT emoji, COUNT(*) as count FROM reactions WHERE thought_id = ? GROUP BY emoji ORDER BY count DESC",
+       /* sql */ `
+      SELECT
+        emoji,
+        COUNT(*) as count
+      FROM
+        reactions
+      WHERE
+        thought_id = ?
+      GROUP BY
+        emoji
+      ORDER BY
+        count DESC
+    `,
     [thoughtId]
   );
 
@@ -33,7 +45,12 @@ function ThoughtReactions({ thoughtId }) {
     try {
 
       await powersync.execute(
-        "INSERT INTO reactions (id, thought_id, user_id, emoji, created_at) VALUES (uuid(), ?, ?, ?, datetime())",
+        /* sql */ `
+          INSERT INTO
+            reactions (id, thought_id, user_id, emoji, created_at)
+          VALUES
+            (uuid (), ?, ?, ?, datetime ())
+        `,
         [thoughtId, connector.userId, emoji]
       );
       setShowEmojiPicker(false);
@@ -96,15 +113,25 @@ export default function ThoughtsApp() {
   const connector = useSupabase();
 
   // Query all thoughts
-  const { data: thoughts } = useQuery<ThoughtRecord>(
-    "SELECT * FROM thoughts ORDER BY created_at DESC"
-  );
+  const { data: thoughts } = useQuery<ThoughtRecord>(/* sql */ `
+    SELECT
+      *
+    FROM
+      thoughts
+    ORDER BY
+      created_at DESC
+  `);
 
   const handleAddThought = async () => {
     if (newThoughtContent.trim()) {
       try {
         await powersync.execute(
-          "INSERT INTO thoughts (id, content, created_at, created_by) VALUES (uuid(), ?, datetime(), ?)",
+          /* sql */ `
+            INSERT INTO
+              thoughts (id, content, created_at, created_by)
+            VALUES
+              (uuid (), ?, datetime (), ?)
+          `,
           [newThoughtContent.trim(), connector.userId]
         );
         setNewThoughtContent("");
@@ -119,19 +146,27 @@ export default function ThoughtsApp() {
     try {
       // Delete all reactions for this thought first
       await powersync.execute(
-        "DELETE FROM reactions WHERE thought_id = ?",
+        /* sql */ `
+          DELETE FROM reactions
+          WHERE
+            thought_id = ?
+        `,
         [thoughtId]
       );
-
       // Then delete the thought
       await powersync.execute(
-        "DELETE FROM thoughts WHERE id = ?",
+        /* sql */ `
+          DELETE FROM thoughts
+          WHERE
+            id = ?
+        `,
         [thoughtId]
       );
     } catch (error) {
       console.error("Error deleting thought:", error);
     }
   };
+
   return (
     <View className="flex-1 bg-gray-50">
       {/* Header */}

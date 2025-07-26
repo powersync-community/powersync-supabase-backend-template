@@ -1,6 +1,6 @@
 import { usePowerSync, useQuery } from "@powersync/react-native";
-import { ThoughtRecord } from "powersync/AppSchema";
-import { useSupabase } from "powersync/SystemProvider";
+import { ThoughtRecord } from "@/powersync/AppSchema";
+import { useSupabase } from "@/powersync/SystemProvider";
 import React, { useState } from "react";
 import {
   View,

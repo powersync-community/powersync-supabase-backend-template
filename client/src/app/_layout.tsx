@@ -1,4 +1,4 @@
-import SystemProvider from "powersync/SystemProvider";
+import SystemProvider from "@/powersync/SystemProvider";
 import "../global.css";
 import { Slot } from "expo-router";
 

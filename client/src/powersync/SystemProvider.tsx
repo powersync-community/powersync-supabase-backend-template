@@ -1,5 +1,6 @@
 import { SupabaseConnector } from './SupabaseConnector';
-import { createBaseLogger, LogLevel, PowerSyncContext, PowerSyncDatabase, SQLJSOpenFactory } from '@powersync/react-native';
+import { SQLJSOpenFactory } from '@powersync/dev'
+import { createBaseLogger, LogLevel, PowerSyncContext, PowerSyncDatabase } from '@powersync/react-native';
 import { AppSchema } from './AppSchema';
 
 import React, { PropsWithChildren } from 'react';

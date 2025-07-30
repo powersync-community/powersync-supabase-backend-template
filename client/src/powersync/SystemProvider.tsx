@@ -1,5 +1,5 @@
 import { SupabaseConnector } from './SupabaseConnector';
-import { SQLJSOpenFactory } from '@powersync/dev'
+import { SQLJSOpenFactory } from '@powersync/adapter-sql-js';
 import { createBaseLogger, LogLevel, PowerSyncContext, PowerSyncDatabase } from '@powersync/react-native';
 import { AppSchema } from './AppSchema';
 

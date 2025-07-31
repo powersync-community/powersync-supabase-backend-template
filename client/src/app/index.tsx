@@ -35,8 +35,6 @@ function ThoughtReactions({ thoughtId }) {
         thought_id = ?
       GROUP BY
         emoji
-      ORDER BY
-        count DESC
     `,
     [thoughtId]
   );
@@ -118,8 +116,6 @@ export default function ThoughtsApp() {
       *
     FROM
       thoughts
-    ORDER BY
-      created_at DESC
   `);
 
   const handleAddThought = async () => {
